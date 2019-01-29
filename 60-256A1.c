@@ -3,7 +3,7 @@
 #include <fcntl.h>
 void writeFunction();
 void getDimens();
-	double fileSize1 = 0, fileSize2 = 0, fileSize3 = 0;
+	double fileSize1 = 0, fileSize2 = 0, fileSize3 = 0; 
 	double fd1, fd2, fd3;
 	char height1[100], width1[100];
 	int height2, width2;
