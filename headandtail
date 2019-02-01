@@ -1,0 +1,7 @@
+Read the help pages for commands grep, cut, head, and tail.
+When using grep with -n, each line of output is prefixed with a line number within its input file.
+Check the output of the grep with line number.
+When using cut, you can change the delimiter using -d.
+Command head outputs the first part of files.
+Check for the options for output the first n lines.
+Command tail outputs the last part of files.

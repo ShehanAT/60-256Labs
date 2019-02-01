@@ -1,0 +1,12 @@
+#!/bin/bash
+
+x=$1 y=$2
+#text=`cat ./headandtail.txt`
+#text= cut -d l-  headandtail.txt
+text= grep -Hrn 'x' headandtail.txt
+#text= cut -d " " -f 1,2 ./headandtail.txt
+echo $text
+#for i in $text; do
+#	echo $i
+#done
+ 

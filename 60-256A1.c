@@ -36,9 +36,9 @@ void getDimens(){
 
 }
 void writeFunction(){
-	fd1 = open("../stop11.ppm", O_RDONLY);
-	fd2 = open("../stop12.ppm", O_RDONLY);
-	fd3 = open("../stop13.ppm", O_CREAT | O_WRONLY , 0777);
+	fd1 = open("../img1.ppm", O_RDONLY);
+	fd2 = open("../img2.ppm", O_RDONLY);
+	fd3 = open("../img3ORG copy.ppm", O_CREAT | O_WRONLY , 0777);
 	char buffer[3];
 	// lseek(fd1, 0, SEEK_SET);
 	// lseek(fd3, 0, SEEK_SET);
