@@ -66,6 +66,7 @@ void writeFunction(){
 			lseek(fd3, ((int)counter+158),SEEK_CUR);
 	}
 
+
 	close(fd1);
     close(fd2);
     close(fd3);
