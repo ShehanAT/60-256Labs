@@ -2,6 +2,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 void writeFunction();
+void getFile1Dimens();
+void getFile2Dimens();
 unsigned convertHeightToInt(char a[], unsigned b);
 unsigned convertWidthToInt(char a[], unsigned b);
 unsigned concatenate(unsigned x, unsigned y);
@@ -11,30 +13,66 @@ void getDimens();
 	unsigned file2H, file2W;
 	char file1Height[10], file1Width[10];
 	unsigned file1H, file1W;
-	char buffer2[3];
+	char* buffer2[100];
 	unsigned count;
 int main(int argc, char *argv[]){
-	getDimens();
-	file2H = (int)convertHeightToInt(file2Height, file2H);
-	file2W = (int)convertWidthToInt(file2Width, file2W);
-	file1H = (int)convertHeightToInt(file1Height, file1H);
-	file1W = (int)convertWidthToInt(file1Width, file1W);
+	getFile1Dimens();
+	getFile2Dimens();
 	writeFunction();
 	
 }
-void getDimens(){
+void getFile1Dimens(){
 	fd1 = open("../stop11.ppm", O_RDONLY);//change before submit
 	fd2 = open("../stop12.ppm", O_RDONLY);//change before submit
-	lseek(fd2, 48, SEEK_SET);//change before submit
-	read(fd2, &file2Width, 4);
-	lseek(fd2, 53, SEEK_SET);//change before submit
-	read(fd2, &file2Height, 3); 
-	lseek(fd1, 48, SEEK_SET);//change before submit
-	read(fd1, &file1Width, 4);
-	lseek(fd1, 53, SEEK_SET);//change before submit
-	read(fd1, &file1Height, 3);
+	lseek(fd1, 0, SEEK_SET);
+	read(fd1, &buffer2, 100);
+	char *p = buffer2;
+	int counter =0;
+	while(*p){
+		 if ( isdigit(*p)  && isdigit(*(p+1))) {
+        	// Found a number
+			counter++;
+        	long val = strtol(p, &p, 10); // Read number
+			if(counter == 1){
+				file1W = val;
+			}
+			if(counter == 2){
+				file1H = val;
+			}
+        	//printf("%ld\n", val); // and print it.
+    	} else {
+        // Otherwise, move on to the next character.
+        	p++;
+    	}
+	}
+}
+void getFile2Dimens(){
+	fd2 = open("../stop12.ppm", O_RDONLY);//change before submit
+	lseek(fd2, 0, SEEK_SET);
+	read(fd2, &buffer2, 100);
+	char *p = buffer2;
+	int counter =0;
+	while(*p){
+		 if ( isdigit(*p)  && isdigit(*(p+1))) {
+
+			counter++;
+        	long val = strtol(p, &p, 10); // Read number
+			if(counter == 1){
+				file2W = val;
+			}
+			if(counter == 2){
+				file2H = val;
+			}
+     
+    	} else {
+ 
+        	p++;
+    	}
+	}
 
 }
+
+
 void writeFunction(){
 	fd1 = open("../stop11.ppm", O_RDONLY);//change before submit
 	fd2 = open("../stop12.ppm", O_RDONLY);//change before submit
@@ -42,15 +80,16 @@ void writeFunction(){
 	 char buffer[3];
 	lseek(fd1, 0, SEEK_SET);
 	lseek(fd3, 0, SEEK_SET);
-	
-	for(int i = 0;  i < file1W; i++){
-		for(int j = 0 ; j < file1W; j++){
+	printf("%d %d\n", file1W, file1H);
+	printf("%d %d\n", file2W, file2H);
+	for(int i = 0;  i < file1H*3; i++){
+		for(int j = 0 ; j < file1W*3; j++){
 			read(fd1, buffer, 3);
 			write(fd3, &buffer, 3);
 		}
 	}
 	 int counter = (file1W - file2W)*3;
-	 lseek(fd3,counter+61, SEEK_SET);
+	 lseek(fd3,counter+61, SEEK_SET);//CHANGE 61 TO 15 
 	 lseek(fd2, 61, SEEK_SET);
 	int quit = 1;
 	int f2Width = 0;
@@ -94,11 +133,4 @@ unsigned convertWidthToInt(char a[],  unsigned b){
 }
 
 
-// requirement explictation
-// analysis
-// system design
-// object design 
-// program implementation
-// testing 
-// delivery 
-// maintainance 
+
