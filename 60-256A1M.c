@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-void writeFunction();
+void writeFunction(); 
 void getFile1Dimens();
 void getFile2Dimens();
 unsigned convertHeightToInt(char a[], unsigned b);
