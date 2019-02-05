@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
-
+ 
 int isprime(int n) {
     int i;
     if (n <= 1) {return 0;}
